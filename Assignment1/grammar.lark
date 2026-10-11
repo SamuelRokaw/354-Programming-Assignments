@@ -1,0 +1,20 @@
+?start: exp
+
+?exp: exp "+" exp1   -> plus
+     | exp "-" exp1   -> minus
+     | exp1
+
+?exp1: exp1 "*" power  -> times
+     | power
+
+?power: atom "^" power -> power
+    | atom
+
+?atom: "log" power "base" power -> log 
+    | NUMBER          -> num
+    | "-" atom        -> neg    
+    | "(" exp ")"
+
+%import common.NUMBER
+%import common.WS
+%ignore WS
